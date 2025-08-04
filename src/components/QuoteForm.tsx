@@ -60,7 +60,7 @@ const QuoteForm = () => {
     setForm(f => ({ ...f, employees: f.employees.filter((_, i) => i !== idx) }));
   };
 
-  const { mutate: submitQuote, isLoading } = useMutation({
+  const { mutate: submitQuote, isPending } = useMutation({
     mutationFn: async () => {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/quotes/`,
