@@ -193,8 +193,8 @@ const QuoteForm = () => {
           ))}
         </div>
 
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Requesting Quote..." : "Get Quote"}
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Requesting Quote..." : "Get Quote"}
         </Button>
       </form>
 
