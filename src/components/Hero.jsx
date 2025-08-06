@@ -1,10 +1,8 @@
-// components/Hero.jsx
 import React from "react";
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-primary via-soft to-background py-20 px-4">
-      {/* Subtle animated wave SVG */}
       <div className="absolute inset-x-0 top-0">
         <svg viewBox="0 0 1440 200" fill="none" className="w-full h-32 animate-pulse-slow" style={{ minWidth: "100%" }}>
           <path

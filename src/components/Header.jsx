@@ -1,4 +1,3 @@
-// components/Header.jsx
 import React from "react";
 
 export default function Header() {
@@ -15,11 +14,11 @@ export default function Header() {
             East Coast Employee Benefits
           </span>
         </a>
-        <nav className="flex gap-6">
-          <a href="/" className="font-medium hover:text-accent transition-colors">Home</a>
-          <a href="/dashboard" className="font-medium hover:text-accent transition-colors">Quotes</a>
-          <a href="/profile" className="font-medium hover:text-accent transition-colors">Profile</a>
-          <a href="/contact" className="font-medium hover:text-accent transition-colors">Contact</a>
+        <nav className="flex gap-6 font-heading text-lg">
+          <a href="/" className="hover:text-accent transition-colors">Home</a>
+          <a href="/quotes" className="hover:text-accent transition-colors">Quotes</a>
+          <a href="/profile" className="hover:text-accent transition-colors">Profile</a>
+          <a href="/contact" className="hover:text-accent transition-colors">Contact</a>
         </nav>
         <a
           href="/login"
