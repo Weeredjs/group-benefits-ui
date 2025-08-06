@@ -1,10 +1,21 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import QuoteForm from "./QuoteForm";
+import QuoteForm from "../components/QuoteForm";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import Dashboard from "./Dashboard"; // Optional, or reuse QuoteForm as dashboard
+import { useIsAuthenticated } from "react-auth-kit";
+
+// Protects private routes
+const RequireAuth = ({ children }: { children: React.ReactNode }) => {
+  const isAuthenticated = useIsAuthenticated();
+  const location = useLocation();
+  return isAuthenticated() ? (
+    <>{children}</>
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
+  );
+};
 
 const App = () => (
   <Router>
@@ -17,10 +28,16 @@ const App = () => (
         </CardHeader>
         <CardContent>
           <Routes>
-            <Route path="/" element={<QuoteForm />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            {/* Optionally add a catch-all redirect: */}
+            <Route
+              path="/"
+              element={
+                <RequireAuth>
+                  <QuoteForm />
+                </RequireAuth>
+              }
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </CardContent>
