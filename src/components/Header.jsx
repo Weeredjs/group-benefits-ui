@@ -1,8 +1,6 @@
 // components/Header.jsx
 import React from "react";
 
-import React from "react";
-
 export default function Header() {
   return (
     <header className="bg-primary text-white shadow-soft sticky top-0 z-50">
