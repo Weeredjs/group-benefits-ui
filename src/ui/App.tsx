@@ -1,49 +1,74 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import QuoteForm from "../components/QuoteForm";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import { useIsAuthenticated } from "react-auth-kit";
+import QuoteForm from "../components/QuoteForm";
+import { useIsAuthenticated, useSignOut } from "react-auth-kit";
 
-// Protects private routes
+const ProfilePage = () => (
+  <div className="p-8 text-center">
+    <h2 className="text-2xl font-bold mb-4">My Profile</h2>
+    <p>Profile management coming soon!</p>
+  </div>
+);
+
+const QuotesDashboard = () => (
+  <div className="p-8 text-center">
+    <h2 className="text-2xl font-bold mb-4">My Quotes</h2>
+    <p>Quotes dashboard coming soon!</p>
+  </div>
+);
+
+const AboutPage = () => (
+  <div className="p-8 text-center">
+    <h2 className="text-2xl font-bold mb-4">About Us</h2>
+    <p>We help Atlantic Canada employers deliver world-class group benefits with ease.</p>
+  </div>
+);
+
+const SupportPage = () => (
+  <div className="p-8 text-center">
+    <h2 className="text-2xl font-bold mb-4">Support</h2>
+    <p>
+      Need help? Contact us at{" "}
+      <a
+        href="mailto:support@eastcoastemployeebenefits.com"
+        className="text-blue-700 underline"
+      >
+        support@eastcoastemployeebenefits.com
+      </a>
+    </p>
+  </div>
+);
+
+// This must be used inside Router, so the hooks are available!
 const RequireAuth = ({ children }: { children: React.ReactNode }) => {
   const isAuthenticated = useIsAuthenticated();
-  const location = useLocation();
-  return isAuthenticated() ? (
-    <>{children}</>
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+  return isAuthenticated() ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
-const App = () => (
-  <Router>
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-indigo-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl shadow-2xl rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-indigo-700">
-            Group Benefits Quoting
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route
-              path="/"
-              element={
-                <RequireAuth>
-                  <QuoteForm />
-                </RequireAuth>
-              }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </CardContent>
-      </Card>
-    </div>
-  </Router>
-);
+const App = () => {
+  const isAuthenticated = useIsAuthenticated();
+  const signOut = useSignOut();
+
+  return (
+    <Router>
+      <NavBar loggedIn={isAuthenticated()} onLogout={signOut} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+        <Route path="/quotes" element={<RequireAuth><QuotesDashboard /></RequireAuth>} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/support" element={<SupportPage />} />
+        <Route path="/quote/new" element={<RequireAuth><QuoteForm /></RequireAuth>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
