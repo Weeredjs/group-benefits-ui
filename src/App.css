@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+/* Add this at the end of your main CSS file */
+@keyframes pulse {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+.animate-pulse-slow {
+  animation: pulse 8s infinite ease-in-out;
+}
