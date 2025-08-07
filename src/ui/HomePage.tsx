@@ -2,31 +2,38 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const HomePage = () => (
-  <div className="flex flex-col items-center justify-center text-center py-12 px-4 relative">
-    {/* Decorative SVG Wave */}
-    <div className="absolute inset-x-0 top-0 z-0">
-      <svg viewBox="0 0 1440 320" className="w-full h-32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#0d47a1" fillOpacity="1" d="M0,160L60,154.7C120,149,240,139,360,138.7C480,139,600,149,720,165.3C840,181,960,203,1080,192C1200,181,1320,139,1380,117.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"/>
+  <section className="relative overflow-hidden bg-gradient-to-b from-primary via-soft to-background py-20 px-4">
+    {/* Subtle animated wave SVG */}
+    <div className="absolute inset-x-0 top-0">
+      <svg viewBox="0 0 1440 200" fill="none" className="w-full h-32 animate-pulse-slow" style={{ minWidth: "100%" }}>
+        <path
+          fill="#479D9C"
+          fillOpacity="0.14"
+          d="M0,128L80,112C160,96,320,64,480,64C640,64,800,96,960,117.3C1120,139,1280,149,1360,154.7L1440,160V0H1360C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0H0Z"
+        ></path>
       </svg>
     </div>
-    <div className="relative z-10">
-      <h1 className="text-4xl font-extrabold text-blue-900 mb-2">
-        Welcome to East Coast Employee Benefits
+    <div className="relative z-10 max-w-3xl mx-auto text-center">
+      <h1 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow">
+        Atlantic Canada's Trusted Group Benefits Partner
       </h1>
-      <p className="text-lg text-blue-700 mb-6">
-        The easiest way to quote, compare, and manage group benefits for Atlantic Canada.
+      <p className="font-body text-lg md:text-xl text-white/90 mb-8">
+        Premium, personalized solutions for employers & organizations—delivered with integrity and expertise.
       </p>
       <Link
         to="/quotes"
-        className="px-8 py-3 bg-yellow-300 hover:bg-yellow-400 text-blue-900 font-semibold rounded-full shadow transition text-lg"
+        className="inline-block px-8 py-3 rounded-2xl bg-accent text-white font-heading font-semibold shadow-soft hover:bg-primary hover:text-soft transition-all"
       >
         Get a Quote
       </Link>
-      <p className="mt-6 text-blue-700">
-        New to group benefits? <Link to="/about" className="underline text-blue-800 hover:text-blue-900">Learn more</Link>
+      <p className="mt-6 font-body text-white/80">
+        New to group benefits?{" "}
+        <Link to="/about" className="underline text-soft hover:text-accent">
+          Learn more
+        </Link>
       </p>
     </div>
-  </div>
+  </section>
 );
 
 export default HomePage;
